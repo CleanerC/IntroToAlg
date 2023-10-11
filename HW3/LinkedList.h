@@ -80,6 +80,7 @@ void Node<T>::print()
 /****** Implementation of linked list ******/
 
 /*** TO BE COMPLETED ***/
+//create new Node as the tail of the list. and make the head point to that tail, and make the tail point to the head.
 template <class T>
 LinkedList<T>::LinkedList(T minVal, T maxVal){
     head = new Node<T>(minVal);
@@ -88,6 +89,7 @@ LinkedList<T>::LinkedList(T minVal, T maxVal){
     head->next->prev = head;
 }
 
+//make a iterater, and a temp pointer. while the iterator is point to something. make the next one point to the iter->next, and free iterator, then make the iterator point to next
 template<class T>
 LinkedList<T>::~LinkedList(){
     Node<T> *iter = head;
@@ -100,6 +102,7 @@ LinkedList<T>::~LinkedList(){
 
 }
 
+//create a iterater, if will loop through the whole loop.
 template<class T>
 Node<T>* LinkedList<T>::search(Node<T> *location, T data){
     Node<T> *iter = location;
@@ -124,7 +127,7 @@ Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
     iter->down = nullptr;
     return iter;
     }else{
-        delete iter;
+        delete iter;    //because there is no place to inseat, free the allocated space
         return nullptr;
     }
 }
@@ -145,6 +148,7 @@ Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
 //     }
 // }
 
+//create a iterator, point to every element in the LinkedList, can call printData on every node.
 template<class T>
 void LinkedList<T>::printData(){
     Node<T> *iter = head;
@@ -155,6 +159,7 @@ void LinkedList<T>::printData(){
     cout<<endl;
 }
 
+//create a iterator, point to every element in the LinkedList, can call pinrt on every Node
 template<class T>
 void LinkedList<T>::print(){
     Node<T> *iter = head;
