@@ -117,6 +117,7 @@ Node<T>* LinkedList<T>::search(Node<T> *location, T data){
 
 template<class T>
 Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
+<<<<<<< HEAD
     Node<T> *iter = new Node(data);
     iter->down = search(location, data);
     if(iter->down != nullptr){
@@ -129,24 +130,23 @@ Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
     }else{
         delete iter;    //because there is no place to inseat, free the allocated space
         return nullptr;
+=======
+    Node<T> *newNode = new Node<T>(data);
+    Node<T> *iter = location;
+    while(iter != nullptr){
+        if(iter->data < data && iter->next->data > data){
+            newNode->next = iter->next;
+            newNode->prev = iter;
+            iter->next->prev = newNode;
+            iter->next = newNode;
+            return newNode;
+        }
+        iter = iter->next;
+>>>>>>> 48f7377 (modidied insert funciton)
     }
+    return nullptr;
 }
 
-//only craete if search doesn't return nullptr
-// template<class T>
-// Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
-//     Node<T> *iter = search(location, data);
-//     if(iter == nullptr){
-//         return nullptr;
-//     }else {
-//         Node<T> *addNode = new Node(data);
-//         iter->next = addNode;
-//         addNode->next = iter->next;
-//         iter->next->prev = addNode;
-//         addNode->prev = iter;
-//         return addNode;
-//     }
-// }
 
 //create a iterator, point to every element in the LinkedList, can call printData on every node.
 template<class T>
