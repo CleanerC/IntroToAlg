@@ -204,26 +204,34 @@ SkipList<T>::~SkipList(){
 template <class T>
 Node<T>* SkipList<T>::search(T data){
     Node<T> *iter = topList->head;
-    while(1){
-        if(data < iter->next->data) {
-            iter = iter->down;
-        } else {
+    while(iter){
+        if(iter->next && data < iter->next->data) {
+            if (iter->down) {
+                iter = iter->down;
+            } else {
+                break;
+            }
+        } else if (iter->next) {
             iter = iter->next;
-        }
-        if(iter->down == nullptr){
-            return iter;
+        } else {
+            break;
         }
     }
+    return iter;
 }
 
 template <class T>
 Node<T>* SkipList<T>::insert(T data) {
-    Node<T> *iter = new Node(data);
+    Node<T> *newNode = new Node<T>(data);
     Node<T> *temp = search(data);
-    iter->next = temp->next;
-    iter->prev = temp;
-    temp->next->prev = iter;
-    temp->next = iter;
+    if(temp){
+        if(temp->next){
+            newNode->next = temp->next;
+            temp->next->prev = newNode;
+        }
+        newNode->prev = temp;
+        temp->next = newNode;
+    }
     //insert to the base level
     if(levels.size() == 1 && levels[0]->head->next == levels[0]->tail){
         LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
@@ -255,7 +263,7 @@ Node<T>* SkipList<T>::insert(T data) {
        } 
     }
     
-    return iter;
+    return newNode;
 }
 
 template <class T>
