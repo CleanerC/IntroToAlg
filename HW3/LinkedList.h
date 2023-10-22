@@ -117,45 +117,16 @@ Node<T>* LinkedList<T>::search(Node<T> *location, T data){
 
 template<class T>
 Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-    Node<T> *iter = new Node(data);
-    iter->down = search(location, data);
-    if(iter->down != nullptr){
-    iter->next = iter->down->next;
-    iter->next->prev = iter;
-    iter->down->next = iter;
-    iter->prev = iter->down;
-    iter->down = nullptr;
-    return iter;
-    }else{
-        delete iter;    //because there is no place to inseat, free the allocated space
-        return nullptr;
-=======
-    Node<T> *newNode = new Node<T>(data);
-    Node<T> *iter = location;
-    while(iter != nullptr){
-        if(iter->data < data && iter->next->data > data){
-            newNode->next = iter->next;
-            newNode->prev = iter;
-            iter->next->prev = newNode;
-            iter->next = newNode;
-            return newNode;
-        }
-        iter = iter->next;
->>>>>>> 48f7377 (modidied insert funciton)
-=======
     Node<T> *iter = search(location, data);
     if(iter == nullptr){
         return nullptr;
-    } else {
+    }else {
         Node<T> *newNode = new Node<T>(data);
         newNode->next = iter->next;
         newNode->prev = iter;
         iter->next->prev = newNode;
         iter->next = newNode;
         return newNode;
->>>>>>> ddff7a2 (modified insert)
     }
 }
 
