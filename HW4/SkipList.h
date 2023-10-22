@@ -204,14 +204,16 @@ SkipList<T>::~SkipList(){
 template <class T>
 Node<T>* SkipList<T>::search(T data){
     Node<T> *iter = topList->head;
-    while(iter != nullptr){
-        if(data < iter->next->data){
+    while(1){
+        if(data < iter->next->data) {
             iter = iter->down;
         } else {
             iter = iter->next;
         }
+        if(iter->down == nullptr){
+            return iter;
+        }
     }
-    return iter;
 }
 
 template <class T>
@@ -222,21 +224,51 @@ Node<T>* SkipList<T>::insert(T data) {
     iter->prev = temp;
     temp->next->prev = iter;
     temp->next = iter;
+    //insert to the base level
+    if(levels.size() == 1 && levels[0]->head->next == levels[0]->tail){
+        LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
+        levels.push_back(newTop);
+        topList = newTop;
+    }   //add second level if base level is empty;
+
     srand(randSeed);
     while(getRand() == 1){
-        static int cnt = 2;
-        if(cnt > level){
-            LinkedList* newTop = new LinkedList<T>(MINVAL, MAXVAL);
-            newTop->head = topList->head;
-            newTop->tail = topList->tail;
-            newTop->insert(newTop->head, data);
-            Node<T> temp = newTop->search(newTop->head, data);
-            temp->down = iter;
-            iter->up = temp;
+
+        static int cnt = 2;        // number of level that is inseting to;
+
+        if(levels.size() == cnt ){
+            Node<T> *temp = levels[cnt-1]->insert(levels[cnt-1]->head, data);
+            Node<T> *belowtmp = levels[cnt-2]->search(levels[cnt-2]->head, data);
+            temp->down = belowtmp;
+            belowtmp->up = temp;
+            LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
+            levels.push_back(newTop);
+            topList = newTop;
             cnt++;
-        } else {
-            
-        }
+        }    
+       else{
+            Node<T> *temp = levels[cnt-1]->insert(levels[cnt-1]->head, data);
+            Node<T> *belowtmp = levels[cnt-2]->search(levels[cnt-2]->head, data);
+            temp->down = belowtmp;
+            belowtmp->up = temp;
+            cnt++;
+       } 
+    }
+    
+    return iter;
+}
+
+template <class T>
+void SkipList<T>::printData(){
+    for(int ii = levels.size()-1; ii >= 0; ii--){
+        levels[ii]->printData();
+    }
+}
+
+template <class T>
+void SkipList<T>::print(){
+    for(int ii = levels.size()-1; ii >= 0; ii--){
+        levels[ii]->print();
     }
 }
 
