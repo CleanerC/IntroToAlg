@@ -28,7 +28,7 @@ int main(int argc, const char * argv[]) {
   mySL->printData();
   cout << "\n SkipList entire content: \n";
   mySL->print();
-  // delete mySL;
+  delete mySL;
   
 
     return 0;

@@ -199,7 +199,9 @@ SkipList<T>::SkipList(T minVal, T maxVal){
 
 template <class T>
 SkipList<T>::~SkipList(){
-    /* to be implemneted */
+    for(auto ii : levels){
+        delete ii;
+    }
 }
 
 template <class T>
@@ -223,6 +225,9 @@ Node<T>* SkipList<T>::insert(T data) {
 
     Node<T> *newNode = new Node<T>(data);
     Node<T> *temp = search(data);
+    if(temp->data == data){
+        return nullptr;
+    }
     int cnt = 2;
     if(temp){
         if(temp->next){
