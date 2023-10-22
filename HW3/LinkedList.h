@@ -118,6 +118,7 @@ Node<T>* LinkedList<T>::search(Node<T> *location, T data){
 template<class T>
 Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     Node<T> *iter = new Node(data);
     iter->down = search(location, data);
     if(iter->down != nullptr){
@@ -143,8 +144,19 @@ Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
         }
         iter = iter->next;
 >>>>>>> 48f7377 (modidied insert funciton)
+=======
+    Node<T> *iter = search(location, data);
+    if(iter == nullptr){
+        return nullptr;
+    } else {
+        Node<T> *newNode = new Node<T>(data);
+        newNode->next = iter->next;
+        newNode->prev = iter;
+        iter->next->prev = newNode;
+        iter->next = newNode;
+        return newNode;
+>>>>>>> ddff7a2 (modified insert)
     }
-    return nullptr;
 }
 
 
