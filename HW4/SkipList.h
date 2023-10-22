@@ -194,6 +194,7 @@ template <class T>
 SkipList<T>::SkipList(T minVal, T maxVal){
     topList = new LinkedList<T>(minVal, maxVal);
     levels.push_back(topList);
+    srand(this->randSeed);
 }
 
 template <class T>
@@ -204,26 +205,25 @@ SkipList<T>::~SkipList(){
 template <class T>
 Node<T>* SkipList<T>::search(T data){
     Node<T> *iter = topList->head;
-    while(iter){
-        if(iter->next && data < iter->next->data) {
-            if (iter->down) {
+    while(1) {
+        if(data < iter->next->data) {
+            if(iter->down) {
                 iter = iter->down;
             } else {
-                break;
+                return iter;
             }
-        } else if (iter->next) {
+        }else {
             iter = iter->next;
-        } else {
-            break;
         }
     }
-    return iter;
 }
 
 template <class T>
 Node<T>* SkipList<T>::insert(T data) {
+
     Node<T> *newNode = new Node<T>(data);
     Node<T> *temp = search(data);
+    int cnt = 2;
     if(temp){
         if(temp->next){
             newNode->next = temp->next;
@@ -233,17 +233,19 @@ Node<T>* SkipList<T>::insert(T data) {
         temp->next = newNode;
     }
     //insert to the base level
-    if(levels.size() == 1 && levels[0]->head->next == levels[0]->tail){
+    if(levels.size() == 1 ){
         LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
         levels.push_back(newTop);
+        newTop->head->down = topList->head;
+        topList->head->up = newTop->head;
+        newTop->tail->down = topList->tail;
+        topList->tail->up = newTop->tail;
         topList = newTop;
     }   //add second level if base level is empty;
 
-    srand(randSeed);
-    while(getRand() == 1){
-
-        static int cnt = 2;        // number of level that is inseting to;
-
+    int randNum = getRand();
+    while(randNum == 1){
+ 
         if(levels.size() == cnt ){
             Node<T> *temp = levels[cnt-1]->insert(levels[cnt-1]->head, data);
             Node<T> *belowtmp = levels[cnt-2]->search(levels[cnt-2]->head, data);
@@ -251,8 +253,13 @@ Node<T>* SkipList<T>::insert(T data) {
             belowtmp->up = temp;
             LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
             levels.push_back(newTop);
+            newTop->head->down = topList->head;
+            topList->head->up = newTop->head;
+            newTop->tail->down = topList->tail;
+            topList->tail->up = newTop->tail;
             topList = newTop;
             cnt++;
+            randNum = getRand();
         }    
        else{
             Node<T> *temp = levels[cnt-1]->insert(levels[cnt-1]->head, data);
@@ -260,6 +267,7 @@ Node<T>* SkipList<T>::insert(T data) {
             temp->down = belowtmp;
             belowtmp->up = temp;
             cnt++;
+            randNum = getRand();
        } 
     }
     
@@ -271,6 +279,7 @@ void SkipList<T>::printData(){
     for(int ii = levels.size()-1; ii >= 0; ii--){
         levels[ii]->printData();
     }
+    cout<<endl;
 }
 
 template <class T>
