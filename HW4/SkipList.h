@@ -200,7 +200,7 @@ SkipList<T>::SkipList(T minVal, T maxVal){
 template <class T>
 SkipList<T>::~SkipList(){
     for(auto ii : levels){
-        delete ii;
+        ii->~LinkedList();
     }
 }
 
