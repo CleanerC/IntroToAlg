@@ -117,18 +117,19 @@ Node<T>* LinkedList<T>::search(Node<T> *location, T data){
 
 template<class T>
 Node<T>* LinkedList<T>::insert(Node<T> *location, T data) {
-    Node<T> *iter = search(location, data);
-    if(iter == nullptr){
-        return nullptr;
-    }else {
+    Node<T> *iter = location;
+    if(data <= iter->next->data){
         Node<T> *newNode = new Node<T>(data);
         newNode->next = iter->next;
         newNode->prev = iter;
         iter->next->prev = newNode;
         iter->next = newNode;
         return newNode;
+    }else {
+        return nullptr;
     }
 }
+
 
 
 //create a iterator, point to every element in the LinkedList, can call printData on every node.
