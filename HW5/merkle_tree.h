@@ -37,6 +37,10 @@ class merkleTree {
         void insert(int newValue);                            //insert new value to the end of data vector and rehash tree
         void printRoot();                                     //print root of tree
 
+        /*added*/
+        vector<Node*> leaves;                                 //store vector of leaf nodes
+        vector<Node*> rootChildren;                           //store vector of parent nodes
+        Node* getRoot();                                      //return root node
 };
 
 vector<int> readIntsFromFile(const string& filename);         //helper function to read from inputed file
