@@ -42,10 +42,10 @@ string merkleTree::concatenateHash(const vector<Node*>& nodes){
 void merkleTree::printTree(const Node* node, int depth){
     int cnt = 0;
     for(int ii = levels.size() - 1; ii >= 0; ii--) {
-        for(int kk = cnt ; kk > 0; kk--){
-            cout<<" ";
-        }
         for(auto jj : levels[ii]) {
+            for(int kk = cnt ; kk > 0; kk--){
+                cout<<" ";
+            }
             cout<<"level "<< cnt <<":"<<jj->key<<endl;
         }
         cnt++;
