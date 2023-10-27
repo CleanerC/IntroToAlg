@@ -43,10 +43,10 @@ void merkleTree::printTree(const Node* node, int depth){
     int cnt = 0;
     for(int ii = levels.size() - 1; ii >= 0; ii--) {
         for(int kk = cnt ; kk > 0; kk--){
-            cout<<" "<<endl;
+            cout<<" ";
         }
         for(auto jj : levels[ii]) {
-            cout<<"level "<< cnt <<jj->key<<endl;
+            cout<<"level "<< cnt <<":"<<jj->key<<endl;
         }
         cnt++;
     }
