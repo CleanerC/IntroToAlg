@@ -40,19 +40,16 @@ string merkleTree::concatenateHash(const vector<Node*>& nodes){
 
 /* Print the Merkle Tree, used to visualize the tree and its content */
 void merkleTree::printTree(const Node* node, int depth){
-        if (node == nullptr){
-            return;
+    int cnt = 0;
+    for(int ii = levels.size() - 1; ii >= 0; ii--) {
+        for(int kk = cnt ; kk > 0; kk--){
+            cout<<" "<<endl;
         }
-        //indent based on depth of the node
-        string indent(depth, ' ');
-
-        //print current node
-        cout << indent << "Level " << depth << ": " << node->key << endl;
-
-        //Recursive call to print children of the current node
-        for(const auto* child: node->children){
-            printTree(child,depth + 1);
+        for(auto jj : levels[ii]) {
+            cout<<"level "<< cnt <<j->key<<endl;
         }
+        cnt++;
+    }
 }
 
 
