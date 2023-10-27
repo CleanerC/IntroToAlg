@@ -46,7 +46,7 @@ void merkleTree::printTree(const Node* node, int depth){
             cout<<" "<<endl;
         }
         for(auto jj : levels[ii]) {
-            cout<<"level "<< cnt <<j->key<<endl;
+            cout<<"level "<< cnt <<jj->key<<endl;
         }
         cnt++;
     }
