@@ -11,6 +11,7 @@ Header file for merkle tree implementation
 #include <functional>
 #include <algorithm>
 #include <fstream>
+#include <cmath>
 
 using namespace std;
 
@@ -19,6 +20,9 @@ class Node {
         string key;                                           //store hash
         vector<Node*> children;                               //store vector of children nodes
         Node(const string& val);                              //constructor
+
+        /*added*/
+        Node* parent = nullptr;                                         //pointer to parent node
 };
 
 class merkleTree {
@@ -38,8 +42,7 @@ class merkleTree {
         void printRoot();                                     //print root of tree
 
         /*added*/
-        vector<Node*> leaves;                                 //store vector of leaf nodes
-        vector<Node*> rootChildren;                           //store vector of parent nodes
+        vector<vector<Node*>> levels;                         //store vector of levels of nodes
         Node* getRoot();                                      //return root node
 };
 

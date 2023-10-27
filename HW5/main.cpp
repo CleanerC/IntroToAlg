@@ -71,8 +71,8 @@ int main(int argc, char** argv){
 
     /* New tree is constructed from using just the insert function. */
     merkleTree newTree;
-    cout << "Creating a new tree from inserts" << endl;
-    cout << "Inserting: 20, 10, 1 to new tree" << endl;
+    // cout << "Creating a new tree from inserts" << endl;
+    // cout << "Inserting: 20, 10, 1 to new tree" << endl;
 
     newTree.insert(20);
     newTree.insert(10);
