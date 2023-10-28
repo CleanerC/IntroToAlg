@@ -257,12 +257,21 @@ void merkleTree::insert(int newValue) {
     } 
     
     //rehash the parent nodes
-    Node *itr = newLeaf->parent;
-    while(itr != nullptr) {
-        itr->key = concatenateHash(itr->children);
-        itr = itr->parent;
+    //Node *itr = newLeaf->parent;
+    //while(itr != nullptr) {
+        //itr->key = concatenateHash(itr->children);
+        //itr = itr->parent;
+    //}
+    //root->key=concatenateHash(root->children);
+
+    //loop everything
+    Node *itr;
+    for(auto ii : levels[0]) {
+        itr = ii->parent;
+        while(itr != nullptr) {
+            itr->key = concatenateHash(itr->children);
+        }
     }
-    root->key=concatenateHash(root->children);
 }
 
 /*Print the Root*/
