@@ -262,6 +262,7 @@ void merkleTree::insert(int newValue) {
         itr->key = concatenateHash(itr->children);
         itr = itr->parent;
     }
+    root->key=concatenateHash(root->children);
 }
 
 /*Print the Root*/
