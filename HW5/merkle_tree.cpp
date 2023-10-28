@@ -109,7 +109,7 @@ merkleTree::merkleTree(const vector<int>& data) {
         levels[cnt].push_back(child);
     }
 
-    //create a levels
+    //this while loop will create all the parent nodes in the cnt level
     while(parentNum(levels[cnt].size()) != 1) {
         //create a new level;
         levels.push_back(vector<Node*>());
@@ -141,6 +141,7 @@ merkleTree::merkleTree(const vector<int>& data) {
         cnt++;
     }
 
+    //this checks if the number of leaves is power of 4, if not, create a new level
     if(!isPowerOfFour(levels[0].size())) {
         //create a new level
         levels.push_back(vector<Node*>());
@@ -154,7 +155,6 @@ merkleTree::merkleTree(const vector<int>& data) {
         root->key = concatenateHash(root->children);
     }
     else{
-
         //set the root node
         root = levels[cnt][0];
         root->key = concatenateHash(root->children);
@@ -187,7 +187,6 @@ void merkleTree::overwrite(int originalValue, int newValue) {
     
     //rehash the parent node
     Node *itr = levels[0][index - 1]->parent;
-
     while(itr != nullptr) {
         itr->key = concatenateHash(itr->children);
         itr = itr->parent;
@@ -206,7 +205,7 @@ void merkleTree::insert(int newValue) {
     data.push_back(newValue);
     levels[0].push_back(newLeaf);
 
-
+    //need this because when there is only one node or only one level, we need to treat them as special cases to prevent seg fault
     if(data.size() == 1) {
         root = newLeaf;
         levels[0].push_back(root);
@@ -229,7 +228,7 @@ void merkleTree::insert(int newValue) {
         newLeaf->parent = levels[1][levels[1].size() - 1];
     }
 
-    //rebuilt the tree and rehash the parent nodes
+    //create new parent nodes
     while(toCreate) {
         Node *newParent = new Node("");
         newParent->children.push_back(levels[cnt][levels[cnt].size() - 1]);
@@ -240,8 +239,9 @@ void merkleTree::insert(int newValue) {
         levels[cnt].push_back(newParent);   
     }
 
+    //check if we created to the last level
     if(cnt + 1 == levels.size()) { 
-        //create a new root node
+        //enter this block when we have to create a new level;
         Node *newRoot = new Node("");
         levels.push_back(vector<Node*>());
         levels[cnt + 1].push_back(newRoot);
@@ -257,22 +257,22 @@ void merkleTree::insert(int newValue) {
     } 
     
     //rehash the parent nodes
-    //Node *itr = newLeaf->parent;
-    //while(itr != nullptr) {
-        //itr->key = concatenateHash(itr->children);
-        //itr = itr->parent;
-    //}
-    //root->key=concatenateHash(root->children);
+    Node *itr = newLeaf->parent;
+    while(itr != nullptr) {
+        itr->key = concatenateHash(itr->children);
+        itr = itr->parent;
+    }
+    root->key=concatenateHash(root->children);
 
     //loop everything
-    Node *itr;
-    for(auto ii : levels[0]) {
-        itr = ii->parent;
-        while(itr != nullptr) {
-            itr->key = concatenateHash(itr->children);
-            itr = itr->parent;
-        }
-    }
+    // Node *itr;
+    // for(auto ii : levels[0]) {
+    //     itr = ii->parent;
+    //     while(itr != nullptr) {
+    //         itr->key = concatenateHash(itr->children);
+    //         itr = itr->parent;
+    //     }
+    // }
 }
 
 /*Print the Root*/
