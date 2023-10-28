@@ -270,6 +270,7 @@ void merkleTree::insert(int newValue) {
         itr = ii->parent;
         while(itr != nullptr) {
             itr->key = concatenateHash(itr->children);
+            itr = itr->parent;
         }
     }
 }
