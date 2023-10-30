@@ -52,7 +52,6 @@ void merkleTree::printTree(const Node* node, int depth){
     }
 }
 
-
 /*helper function to read from a file*/
 vector<int> readIntsFromFile(const string& filename) {
     vector<int> data;
@@ -73,12 +72,6 @@ bool isPowerOfFour(int n) {
         n /= 4;
     }
     return true;
-}
-
-/*find how many levels to create*/
-int log4(int num) {
-    int ret = log(num) / log(4);
-    return isPowerOfFour(num) ? ret + 1 : ret + 2;
 }
 
 /*find howmany parent to create this level*/
