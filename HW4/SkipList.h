@@ -69,6 +69,8 @@ public:
 
     /* added */
     vector<LinkedList<T>*> levels;
+    T minVal;
+    T maxVal;
 };
 
 //returns 0 or 1 with a 50% chance 
@@ -195,6 +197,8 @@ SkipList<T>::SkipList(T minVal, T maxVal){
     topList = new LinkedList<T>(minVal, maxVal);
     levels.push_back(topList);
     srand(this->randSeed);
+    this->minVal = minVal;
+    this->maxVal = maxVal;
 }
 
 template <class T>
@@ -239,7 +243,7 @@ Node<T>* SkipList<T>::insert(T data) {
     }
     //insert to the base level
     if(levels.size() == 1 ){
-        LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
+        LinkedList<T> *newTop = new LinkedList<T>(minVal, maxVal);
         levels.push_back(newTop);
         newTop->head->down = topList->head;
         topList->head->up = newTop->head;
@@ -248,15 +252,14 @@ Node<T>* SkipList<T>::insert(T data) {
         topList = newTop;
     }   //add second level if base level is empty;
 
-    int randNum = getRand();
-    while(randNum == 1){
+    while(getRand()){
  
         if(levels.size() == cnt ){
             Node<T> *temp = levels[cnt-1]->insert(levels[cnt-1]->head, data);
             Node<T> *belowtmp = levels[cnt-2]->search(levels[cnt-2]->head, data);
             temp->down = belowtmp;
             belowtmp->up = temp;
-            LinkedList<T> *newTop = new LinkedList<T>(MINVAL, MAXVAL);
+            LinkedList<T> *newTop = new LinkedList<T>(minVal, maxVal);
             levels.push_back(newTop);
             newTop->head->down = topList->head;
             topList->head->up = newTop->head;
@@ -264,7 +267,6 @@ Node<T>* SkipList<T>::insert(T data) {
             topList->tail->up = newTop->tail;
             topList = newTop;
             cnt++;
-            randNum = getRand();
         }    
        else{
             Node<T> *temp = levels[cnt-1]->insert(levels[cnt-1]->head, data);
@@ -272,7 +274,6 @@ Node<T>* SkipList<T>::insert(T data) {
             temp->down = belowtmp;
             belowtmp->up = temp;
             cnt++;
-            randNum = getRand();
        } 
     }
     
