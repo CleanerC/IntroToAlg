@@ -201,7 +201,6 @@ void merkleTree::insert(int newValue) {
     //need this because when there is only one node or only one level, we need to treat them as special cases to prevent seg fault
     if(data.size() == 1) {
         root = newLeaf;
-        levels[0].push_back(root);
         return;
     } else if (data.size() == 2){
         levels.push_back(vector<Node*>());
