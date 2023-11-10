@@ -50,6 +50,9 @@
         "format": "cpp",
         "list": "cpp",
         "xhash": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "ios": "cpp",
+        "xiosbase": "cpp",
+        "xlocale": "cpp"
     }
 }
