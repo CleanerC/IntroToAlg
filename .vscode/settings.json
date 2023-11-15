@@ -53,6 +53,8 @@
         "xutility": "cpp",
         "ios": "cpp",
         "xiosbase": "cpp",
-        "xlocale": "cpp"
+        "xlocale": "cpp",
+        "sstream": "cpp",
+        "locale": "cpp"
     }
 }

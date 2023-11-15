@@ -2,14 +2,6 @@
 //  Problem5.h
 //  ec330_hw6
 //
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <locale>
-#include <algorithm>
-#include <iterator>
-#include <vector>
 
 using namespace std;
 
