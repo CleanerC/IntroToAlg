@@ -1,0 +1,3 @@
+The number of BU-IDs whose digits add to a number greater than 28: 49323
+Number of valid dictionary words that don't end with last letter of last name: 452062543
+Longest palindrome: 11
