@@ -55,6 +55,8 @@
         "xiosbase": "cpp",
         "xlocale": "cpp",
         "sstream": "cpp",
-        "locale": "cpp"
+        "locale": "cpp",
+        "queue": "cpp",
+        "ctime": "cpp"
     }
 }
