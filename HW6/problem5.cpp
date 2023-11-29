@@ -132,7 +132,7 @@ void countOccurrences(Trie& trie, const string& text, unordered_map<string, int>
             node = node->children[c];
             currentWord += c;
 
-            if (node->is_end_of_word && currentWord[currentWord.size() - 1] != 'x') {
+            if (node->is_end_of_word && currentWord[currentWord.size() - 1] != 'g') {
                 wordCounts[currentWord]++;
             }
 
